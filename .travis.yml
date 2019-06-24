@@ -22,17 +22,7 @@ matrix:
       env: WP_VERSION=latest
     - php: 7.1
       env: WP_VERSION=latest
-    - php: 7.0
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=trunk
-    - php: 5.6
-      env: WP_TRAVISCI=phpcs
-    - php: 5.3
-      env: WP_VERSION=latest
-      dist: precise
+  fast_finish: true
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -65,3 +55,7 @@ script:
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       phpcs
     fi
+
+env:
+  - WP_MULTISITE=1
+  - WP_MULTISITE=0
