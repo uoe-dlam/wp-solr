@@ -15,74 +15,26 @@ branches:
 cache:
   directories:
     - $HOME/.composer/cache
+    - $TRAVIS_BUILD_DIR/apache-solr-8.0.0
+    - $TRAVIS_BUILD_DIR/apache-solr-8.0.0.tgz
+
+php:
+  - 7.4snapshot
+  - 7.3
+  - 7.2
+  - 7.1
+
+env:
+  - WP_VERSION=latest WP_MULTISITE=1
+  - WP_VERSION=latest WP_MULTISITE=0
+  - WP_VERSION=5.1 WP_MULTISITE=1
+  - WP_VERSION=5.1 WP_MULTISITE=0
+  - WP_VERSION=5.0 WP_MULTISITE=1
+  - WP_VERSION=5.0 WP_MULTISITE=0
+  - WP_VERSION=4.9 WP_MULTISITE=1
+  - WP_VERSION=4.9 WP_MULTISITE=0
 
 matrix:
-  include:
-    - php: 7.4snapshot
-      env: WP_VERSION=latest WP_MULTISITE=1
-    - php: 7.4snapshot
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: 7.4snapshot
-      env: WP_VERSION=5.1 WP_MULTISITE=1
-    - php: 7.4snapshot
-      env: WP_VERSION=5.1 WP_MULTISITE=0
-    - php: 7.4snapshot
-      env: WP_VERSION=5.0 WP_MULTISITE=1
-    - php: 7.4snapshot
-      env: WP_VERSION=5.0 WP_MULTISITE=0
-    - php: 7.4snapshot
-      env: WP_VERSION=4.9 WP_MULTISITE=1
-    - php: 7.4snapshot
-      env: WP_VERSION=4.9 WP_MULTISITE=0
-    - php: 7.3
-      env: WP_VERSION=latest WP_MULTISITE=1
-    - php: 7.3
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: 7.3
-      env: WP_VERSION=5.1 WP_MULTISITE=1
-    - php: 7.3
-      env: WP_VERSION=5.1 WP_MULTISITE=0
-    - php: 7.3
-      env: WP_VERSION=5.0 WP_MULTISITE=1
-    - php: 7.3
-      env: WP_VERSION=5.0 WP_MULTISITE=0
-    - php: 7.3
-      env: WP_VERSION=4.9 WP_MULTISITE=1
-    - php: 7.3
-      env: WP_VERSION=4.9 WP_MULTISITE=0
-    - php: 7.2
-      env: WP_VERSION=latest WP_MULTISITE=1
-    - php: 7.2
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: 7.2
-      env: WP_VERSION=5.1 WP_MULTISITE=1
-    - php: 7.2
-      env: WP_VERSION=5.1 WP_MULTISITE=0
-    - php: 7.2
-      env: WP_VERSION=5.0 WP_MULTISITE=1
-    - php: 7.2
-      env: WP_VERSION=5.0 WP_MULTISITE=0
-    - php: 7.2
-      env: WP_VERSION=4.9 WP_MULTISITE=1
-    - php: 7.2
-      env: WP_VERSION=4.9 WP_MULTISITE=0
-    - php: 7.1
-      env: WP_VERSION=latest WP_MULTISITE=1
-    - php: 7.1
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: 7.1
-      env: WP_VERSION=5.1 WP_MULTISITE=1
-    - php: 7.1
-      env: WP_VERSION=5.1 WP_MULTISITE=0
-    - php: 7.1
-      env: WP_VERSION=5.0 WP_MULTISITE=1
-    - php: 7.1
-      env: WP_VERSION=5.0 WP_MULTISITE=0
-    - php: 7.1
-      env: WP_VERSION=4.9 WP_MULTISITE=1
-    - php: 7.1
-      env: WP_VERSION=4.9 WP_MULTISITE=0
-
   fast_finish: true
 
 before_script:
