@@ -138,7 +138,9 @@ class SolrTest extends WP_UnitTestCase {
      */
     public function test_index_site_for_multisite() {
         for ($i = 0; $i < 10; $i++) {
-            $this->add_blog("test_blog_$i", "Test Blog $i");
+            $blogId = $this->factory->blog->create();
+
+            switch_to_blog($blogId);
             $this->factory->post->create_many(10);
         }
 
