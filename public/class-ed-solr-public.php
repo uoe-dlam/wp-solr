@@ -95,18 +95,7 @@ class Ed_Solr_Public {
 	 * @return void
 	 */
 	public function store_post( $post_id ) {
-		$solr_client = new Solarium\Client(
-			[
-				'endpoint' => [
-					'localhost' => [
-						'host' => get_site_option( 'solr-host' ),
-						'port' => get_site_option( 'solr-port' ),
-						'path' => get_site_option( 'solr-path' ),
-						'core' => get_site_option( 'solr-core' ),
-					],
-				],
-			]
-		);
+	    $solr_client = $this->get_solr_client();
 
 		$update = $solr_client->createUpdate();
 
@@ -133,4 +122,30 @@ class Ed_Solr_Public {
 			wp_mail( get_site_option( 'solr-email' ), 'Solr Index Error', "Error saving post ID: $post->ID" );
 		}
 	}
+
+	public function delete_post( $post_id ) {
+	    $solr_client = $this->get_solr_client();
+
+	    $update = $solrClient->createUpdate();
+
+	    $update->addDeleteById( get_current_blog_id() . '_' . $post_id );
+	    $update->addCommit();
+
+	    $solr_client->update($update);
+    }
+
+    private function get_solr_client() {
+	    return new Solarium\Client(
+			[
+				'endpoint' => [
+					'localhost' => [
+						'host' => get_site_option( 'solr-host' ),
+						'port' => get_site_option( 'solr-port' ),
+						'path' => get_site_option( 'solr-path' ),
+						'core' => get_site_option( 'solr-core' ),
+					],
+				],
+			]
+		);
+    }
 }
