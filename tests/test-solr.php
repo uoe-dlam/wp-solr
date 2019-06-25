@@ -142,7 +142,7 @@ class SolrTest extends WP_UnitTestCase {
             $this->factory->post->create_many(10);
         }
 
-        $solrAdmin = new Ed_Solr_Admin('ed-solr', 1.0.0);
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
 
         $solrAdmin->index_blogs();
 
@@ -161,7 +161,7 @@ class SolrTest extends WP_UnitTestCase {
     public function test_index_site() {
         $this->factory->post->create_many(10);
 
-        $solrAdmin = new Ed_Solr_Admin('ed-solr', 1.0.0);
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
 
         $solrAdmin->index_blogs();
 
