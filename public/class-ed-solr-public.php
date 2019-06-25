@@ -126,7 +126,7 @@ class Ed_Solr_Public {
 	public function delete_post( $post_id ) {
 	    $solr_client = $this->get_solr_client();
 
-	    $update = $solrClient->createUpdate();
+	    $update = $solr_client->createUpdate();
 
 	    $update->addDeleteById( get_current_blog_id() . '_' . $post_id );
 	    $update->addCommit();
