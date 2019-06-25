@@ -132,4 +132,45 @@ class SolrTest extends WP_UnitTestCase {
         $this->assertEquals(1, $update_result_set->getNumFound());
         $this->assertEquals($original_solr_page_id, $update_result_set->getDocuments()[0]['id']);
     }
+
+    /**
+     * @group multisite
+     */
+    public function test_index_site_for_multisite() {
+        for ($i = 0; $i < 10; $i++) {
+            $this->add_blog("test_blog_$i", "Test Blog $i");
+            $this->factory->post->create_many(10);
+        }
+
+        $solrAdmin = new Ed_Solr_Admin();
+
+        $solrAdmin->index_blogs();
+
+        $query = $this->solr_client->createSelect();
+
+        $query->setQuery('*:*');
+
+        $resultSet = $this->solr_client->select($query);
+
+        $this->assertEquals(100, $resultSet->getNumFound());
+    }
+
+    /**
+     * @group singlesite
+     */
+    public function test_index_site() {
+        $this->factory->post->create_many(10);
+
+        $solrAdmin = new Ed_Solr_Admin();
+
+        $solrAdmin->index_blogs();
+
+        $query = $this->solr_client->createSelect();
+
+        $query->setQuery('*:*');
+
+        $resultSet = $this->solr_client->select($query);
+
+        $this->assertEquals(10, $resultSet->getNumFound());
+    }
 }
