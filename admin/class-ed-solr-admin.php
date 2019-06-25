@@ -117,12 +117,45 @@ class Ed_Solr_Admin {
 	}
 
 	/**
-	 * Index all blogs in the external Solr server.
+	 * Index all blogs in the external Solr server and redirect for status message.
 	 *
 	 * @since   1.0.0
 	 */
 	public function index_blogs() {
-		$solr_client = new Solarium\Client(
+		if ( $this->index_all_blogs_in_solr() === 0 ) {
+			wp_redirect(
+				esc_url_raw(
+					add_query_arg(
+						[
+							'admin_response' => 'Blogs indexed.',
+						],
+						network_admin_url( 'admin.php?page=solr-search' )
+					)
+				)
+			);
+		} else {
+			wp_redirect(
+				esc_url_raw(
+					add_query_arg(
+						[
+							'admin_error' => 'Error indexing blogs. Please contact an admin if this issue persists.',
+						],
+						network_admin_url( 'admin.php?page=solr-search' )
+					)
+				)
+			);
+		}
+
+		exit;
+	}
+
+    /**
+     * Index all blogs in a WordPress instance into Apache Solr.
+     *
+     * @return int
+     */
+	public function index_all_blogs_in_solr() {
+         $solr_client = new Solarium\Client(
 			[
 				'endpoint' => [
 					'localhost' => [
@@ -167,32 +200,8 @@ class Ed_Solr_Admin {
 
 		$result = $solr_client->update( $update );
 
-		if ( $result->getStatus() === 0 ) {
-			wp_redirect(
-				esc_url_raw(
-					add_query_arg(
-						[
-							'admin_response' => 'Blogs indexed.',
-						],
-						network_admin_url( 'admin.php?page=solr-search' )
-					)
-				)
-			);
-		} else {
-			wp_redirect(
-				esc_url_raw(
-					add_query_arg(
-						[
-							'admin_error' => 'Error indexing blogs. Please contact an admin if this issue persists.',
-						],
-						network_admin_url( 'admin.php?page=solr-search' )
-					)
-				)
-			);
-		}
-
-		exit;
-	}
+		return $result->getStatus();
+    }
 
 	/**
 	 * Register the default Solr server settings with WordPress.
