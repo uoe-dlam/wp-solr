@@ -177,4 +177,17 @@ class SolrTest extends WP_UnitTestCase {
         $this->assertEquals(10, $resultSet->getNumFound());
         $this->assertEquals(0, $indexResult);
     }
+
+    public function test_delete_post() {
+        $postId = $this->factory->post->create(['post_title' => 'Test Post Title', 'post_content' => 'Test Post Content']);
+        wp_delete_post($postId);
+
+        $query = $this->solr_client->createSelect();
+
+        $query->setQuery('post_title:"Test Post Title"');
+
+        $resultSet = $this->solr_client->select($query);
+
+        $this->assertEquals(0, $resultSet->getNumFound());
+    }
 }
