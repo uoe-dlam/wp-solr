@@ -176,7 +176,7 @@ class Ed_Solr {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'publish_post', $plugin_public, 'store_post' );
 		$this->loader->add_action( 'publish_page', $plugin_public, 'store_post' );
-		//$this->loader->add_action( 'delete_post', $plugin_public, 'delete_post' );
+		$this->loader->add_action( 'delete_post', $plugin_public, 'delete_post' );
 	}
 
 	/**

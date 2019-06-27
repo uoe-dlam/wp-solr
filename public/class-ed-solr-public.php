@@ -141,10 +141,7 @@ class Ed_Solr_Public {
 	    $update->addDeleteById( get_current_blog_id() . '_' . $post_id );
 	    $update->addCommit();
 
-	    $result = $solr_client->update($update);
-
-	    echo print_r($result, true);
-	    echo 'Was deleting ' . get_current_blog_id() . '_' . $post_id;
+	    $solr_client->update($update);
     }
 
     private function get_solr_client() {
