@@ -185,7 +185,7 @@ class SolrTest extends WP_UnitTestCase {
 
         $query = $this->solr_client->createSelect();
 
-        $query->setQuery('post_title:"Test Post Title"');
+        $query->setQuery('postTitle:"Test Post Title"');
 
         $resultSet = $this->solr_client->select($query);
 
