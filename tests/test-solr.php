@@ -189,9 +189,6 @@ class SolrTest extends WP_UnitTestCase {
 
         $resultSet = $this->solr_client->select($query);
 
-        echo print_r($resultSet, true);
-        die();
-
         $this->assertEquals(0, $resultSet->getNumFound());
     }
 }
