@@ -209,10 +209,10 @@ class Ed_Solr_Admin {
 	 * @since   1.0.0
 	 */
 	public function register_solr_settings() {
-		add_site_option( 'solr-host', 'localhost' );
-		add_site_option( 'solr-port', '8983' );
-		add_site_option( 'solr-path', '/' );
-		add_site_option( 'solr-core', 'WordPress' );
+		add_site_option( 'solr-host', '' );
+		add_site_option( 'solr-port', '' );
+		add_site_option( 'solr-path', '' );
+		add_site_option( 'solr-core', '' );
 		add_site_option( 'solr-email', '' );
 	}
 
