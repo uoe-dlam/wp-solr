@@ -180,7 +180,8 @@ class SolrTest extends WP_UnitTestCase {
 
     public function test_delete_post() {
         $postId = $this->factory->post->create(['post_title' => 'Test Post Title', 'post_content' => 'Test Post Content']);
-        wp_delete_post($postId);
+
+        wp_delete_post($postId, true);
 
         $query = $this->solr_client->createSelect();
 
