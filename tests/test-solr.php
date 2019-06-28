@@ -64,12 +64,6 @@ class SolrTest extends WP_UnitTestCase {
     }
 
     public function test_index_post() {
-        echo '1 - ' . get_site_option('solr-host');
-        echo get_site_option('solr-port');
-        echo get_site_option('solr-path');
-        echo get_site_option('solr-core');
-
-
         $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content' ) );
 
         $query = $this->solr_client->createSelect();
