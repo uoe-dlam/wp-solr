@@ -141,7 +141,11 @@ class Ed_Solr_Public {
 	    $update->addDeleteById( get_current_blog_id() . '_' . $post_id );
 	    $update->addCommit();
 
-	    $solr_client->update($update);
+	    try {
+            $solr_client->update($update);
+        } catch (\Solarium\Exception\HttpException $e) {
+	        // do something here...
+        }
     }
 
     private function get_solr_client() {
