@@ -146,8 +146,9 @@ class Ed_Solr_Public {
 	    $update->addCommit();
 
 	    try {
-            $solr_client->update($update);
+	        $result = $solr_client->update($update);
             echo 'I am here and the host is ' . get_site_option('solr-host');
+            echo 'The result is ' . print_r($result, true);
         } catch (Exception $e) {
 	        echo 'I AM ACTUALLY HERE';
 	       wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
