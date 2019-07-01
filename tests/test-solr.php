@@ -137,11 +137,11 @@ class SolrTest extends WP_UnitTestCase {
      * @group multisite
      */
     public function test_index_site_for_multisite() {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $blogId = $this->factory->blog->create();
 
             switch_to_blog($blogId);
-            $this->factory->post->create_many(10);
+            $this->factory->post->create_many(3);
         }
 
         $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
@@ -154,7 +154,7 @@ class SolrTest extends WP_UnitTestCase {
 
         $resultSet = $this->solr_client->select($query);
 
-        $this->assertEquals(100, $resultSet->getNumFound());
+        $this->assertEquals(9, $resultSet->getNumFound());
         $this->assertEquals(0, $indexResult);
     }
 
@@ -201,6 +201,9 @@ class SolrTest extends WP_UnitTestCase {
 
         $mailer = tests_retrieve_phpmailer_instance();
         $email = $mailer->get_sent();
+
+        echo print_r($email, true);
+        die();
 
         $this->assertSame('Solr Deletion Error', $email->subject);
         $this->assertSame(get_site_option('solr-email'), $email->to);
