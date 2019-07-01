@@ -202,7 +202,7 @@ class SolrTest extends WP_UnitTestCase {
         $mailer = tests_retrieve_phpmailer_instance();
         $email = $mailer->get_sent();
 
-        echo print_r($email, true);
+        echo 'The email content is... ' . print_r($email, true);
         die();
 
         $this->assertSame('Solr Deletion Error', $email->subject);
