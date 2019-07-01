@@ -146,17 +146,15 @@ class Ed_Solr_Public {
 	    $update->addCommit();
 
 	    try {
-	        $result = $solr_client->update($update);
-            echo 'I am here and the host is ' . get_site_option('solr-host');
-            echo 'The result is ' . print_r($result, true);
+            $solr_client->update($update);
         } catch (Exception $e) {
-	        echo 'I AM ACTUALLY HERE';
 	       wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
         }
     }
 
     private function get_solr_client() {
 	    if ( ! isset( $this->solr_client )) {
+	        echo 'setting up a new client with the host ' . get_site_option( 'solr-host' );
 	        $this->solr_client = new Solarium\Client(
 			    [
 				    'endpoint' => [
@@ -169,6 +167,8 @@ class Ed_Solr_Public {
 				    ],
 			    ]
 		    );
+        } else {
+	        echo 'already have the client set up with the host ' . get_site_option('solr-host');
         }
 
 	    return $this->solr_client;
