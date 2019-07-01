@@ -147,7 +147,9 @@ class Ed_Solr_Public {
 
 	    try {
             $solr_client->update($update);
+            echo 'I am here';
         } catch (Exception $e) {
+	        echo 'I AM ACTUALLY HERE';
 	       wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
         }
     }
