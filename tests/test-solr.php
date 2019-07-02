@@ -177,4 +177,73 @@ class SolrTest extends WP_UnitTestCase {
         $this->assertEquals(10, $resultSet->getNumFound());
         $this->assertEquals(0, $indexResult);
     }
+
+    public function test_basic_search() {
+        $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content', 'post_type' => 'post' ) );
+
+        $args = array(
+            'keywords'        => 'Test Post Title',
+            'blog_ids'        => array(1),
+            'current_page'    => 1,
+            'show_ease'       => true
+        );
+
+        $solr_search = new Ed_Solr_Search( $args );
+
+        $this->assertEquals( 1, count( $solr_search->posts ) );
+    }
+
+    public function test_search_only_returns_posts_for_specified_blogs() {
+        $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content', 'post_type' => 'post' ) );
+
+        $args = array(
+            'keywords'        => 'Test Post Title',
+            'blog_ids'        => array(2),
+            'current_page'    => 1,
+            'show_ease'       => true
+        );
+
+        $solr_search = new Ed_Solr_Search( $args );
+
+        $this->assertEquals( 0, count( $solr_search->posts ) );
+    }
+
+    public function test_ease_restricted_search() {
+        $_POST['chk_ease_only'] = 1;
+        $_POST['action'] = 'editpost';
+
+        $id = $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content', 'post_type' => 'post' ) );
+        add_post_meta( $id, 'ease_only', true );
+
+        $args = array(
+            'keywords'        => 'Test Post Title',
+            'blog_ids'        => array(1),
+            'current_page'    => 1,
+            'show_ease'       => false
+        );
+
+        $solr_search = new Ed_Solr_Search( $args );
+
+        $this->assertEquals( 0, count( $solr_search->posts ) );
+    }
+
+    public function test_ease_restricted_posts_return_when_show_ease_turned_on() {
+        $_POST['chk_ease_only'] = 1;
+        $_POST['action'] = 'editpost';
+
+        $id = $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content', 'post_type' => 'post' ) );
+        add_post_meta( $id, 'ease_only', true );
+
+        $args = array(
+            'keywords'        => 'Test Post Title',
+            'blog_ids'        => array(1),
+            'current_page'    => 1,
+            'show_ease'       => true
+        );
+
+        $solr_search = new Ed_Solr_Search( $args );
+
+        $this->assertEquals( 1, count( $solr_search->posts ) );
+    }
+
 }

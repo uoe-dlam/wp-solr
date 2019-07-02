@@ -122,6 +122,22 @@ class Ed_Solr {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-ed-solr-public.php';
 
+		/**
+		 * The class responsible for searching solr
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-search.php';
+
+		/**
+		 * solr pagination class
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-pagination.php';
+
+		/**
+		 * solr mapper class
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-post-mapper.php';
+
 		$this->loader = new Ed_Solr_Loader();
 
 	}

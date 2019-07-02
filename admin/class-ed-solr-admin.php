@@ -180,18 +180,9 @@ class Ed_Solr_Admin {
 			$posts = get_posts( -1 );
 
 			foreach ( $posts as $post ) {
-				$document = $update->createDocument();
-
-				$document->id          = $blog->blog_id . '_' . $post->ID;
-				$document->blogId      = $blog->blog_id;
-				$document->postId      = $post->ID;
-				$document->postAuthor  = $post->post_author;
-				$document->postDate    = $post->post_date;
-				$document->postTitle   = $post->post_title;
-				$document->postContent = $post->post_content;
-				$document->postExcerpt = $post->post_excerpt;
-
-				$documents[] = $document;
+                $mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
+                $update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
+				$documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
 			}
 		}
 
