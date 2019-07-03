@@ -36,15 +36,6 @@ class Ed_Solr_Public {
 	 */
 	private $version;
 
-    /**
-     * An instance of our solr client.
-     *
-     * @since   1.0.0
-     * @access  private
-     * @var     Solarium\Client     $solr_client    An instance of our Solr client
-     */
-	private $solr_client;
-
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -153,24 +144,17 @@ class Ed_Solr_Public {
     }
 
     private function get_solr_client() {
-	    if ( ! isset( $this->solr_client )) {
-	        echo 'setting up a new client with the host ' . get_site_option( 'solr-host' );
-	        $this->solr_client = new Solarium\Client(
-			    [
-				    'endpoint' => [
-					    'localhost' => [
-						    'host' => get_site_option( 'solr-host' ),
-						    'port' => get_site_option( 'solr-port' ),
-						    'path' => get_site_option( 'solr-path' ),
-						    'core' => get_site_option( 'solr-core' ),
-					    ],
-				    ],
-			    ]
-		    );
-        } else {
-	        echo 'already have the client set up with the host ' . get_site_option('solr-host');
-        }
-
-	    return $this->solr_client;
+        return new Solarium\Client(
+            [
+                'endpoint' => [
+                    'localhost' => [
+                        'host' => get_site_option( 'solr-host' ),
+                        'port' => get_site_option( 'solr-port' ),
+                        'path' => get_site_option( 'solr-path' ),
+                        'core' => get_site_option( 'solr-core' ),
+                    ],
+                ],
+            ]
+        );
     }
 }
