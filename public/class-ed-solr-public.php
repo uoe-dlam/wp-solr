@@ -137,6 +137,8 @@ class Ed_Solr_Public {
 	    $update->addCommit();
 
 	    try {
+	        echo 'Sending an email';
+
             $solr_client->update($update);
         } catch (Exception $e) {
 	       wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
