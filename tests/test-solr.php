@@ -13,6 +13,8 @@ class SolrTest extends WP_UnitTestCase {
         if ( ! $this->pingSolr() ) {
             $this->fail('Cannot connect to Solr');
         }
+
+        reset_phpmailer_instance();
     }
 
     public function tearDown() {
@@ -24,6 +26,8 @@ class SolrTest extends WP_UnitTestCase {
         $update->addCommit();
 
         $solr_client->update($update);
+
+        reset_phpmailer_instance();
 
         parent::tearDown();
     }
@@ -199,6 +203,7 @@ class SolrTest extends WP_UnitTestCase {
 
         update_site_option('solr-host', 'bad-host');
 
+        echo "Deleting the post $postId";
         wp_delete_post($postId, true);
 
         $mailer = tests_retrieve_phpmailer_instance();
