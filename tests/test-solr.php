@@ -211,6 +211,6 @@ class SolrTest extends WP_UnitTestCase {
         $this->assertSame(get_site_option('solr-email'), $mailer->get_recipient('to', 0)->address);
         echo 'The email is ' . print_r($email, true);
         echo 'And the body is ' . $email->body;
-        $this->assertSame("test script", $email->body);
+        $this->assertDiscardWhitespace("Error deleting post ID: $postId", $email->body);
     }
 }
