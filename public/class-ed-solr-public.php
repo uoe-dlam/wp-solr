@@ -139,10 +139,7 @@ class Ed_Solr_Public {
 	    try {
             $solr_client->update($update);
         } catch (Exception $e) {
-            echo "Sending an email for $post_id";
-
             wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
-            echo "The WP Mail instance is " . print_r($GLOBALS['phpmailer'], true);
         }
     }
 

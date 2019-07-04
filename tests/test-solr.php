@@ -159,8 +159,6 @@ class SolrTest extends WP_UnitTestCase {
 
         $resultSet = $this->solr_client->select($query);
 
-        echo 'The result set is ' . print_r($resultSet, true);
-
         $this->assertEquals(9, $resultSet->getNumFound());
         $this->assertEquals(0, $indexResult);
     }
@@ -207,7 +205,6 @@ class SolrTest extends WP_UnitTestCase {
         wp_delete_post($postId, true);
 
         $mailer = tests_retrieve_phpmailer_instance();
-        echo 'The mailer in the test is ' . print_r($mailer, true);
         $email = $mailer->get_sent();
 
         $this->assertSame('Solr Deletion Error', $email->subject);
