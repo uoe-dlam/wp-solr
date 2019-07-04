@@ -37,6 +37,7 @@ class SolrTest extends WP_UnitTestCase {
         add_site_option('solr-port', 8983);
         add_site_option('solr-path', '/');
         add_site_option('solr-core', 'WordPress');
+        add_site_option('solr-email', 'ltw-apps-dev@ed.ac.uk');
     }
 
     private function pingSolr() {
