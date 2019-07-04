@@ -96,7 +96,6 @@ class Ed_Solr_Search {
 		$query->setQuery( $this->get_query_string() );
 		$query->setStart( $this->get_start_record() );
 		$query->setRows( $this->posts_per_page );
-		$query->addSort( 'postDate', $query::SORT_DESC );
 		$result_set = $this->solr_client->select( $query );
 
 		foreach ( $result_set as $document ) {
