@@ -147,12 +147,8 @@ class SolrTest extends WP_UnitTestCase {
         for ($i = 0; $i < 3; $i++) {
             $blogId = $this->factory->blog->create();
 
-            echo "Creating blog ID $blogId";
-
             switch_to_blog($blogId);
-            $postResults = $this->factory->post->create_many(3);
-
-            echo 'The post results created are: ' . print_r($postResults, true);
+            $this->factory->post->create_many(3);
         }
 
         $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
@@ -165,9 +161,8 @@ class SolrTest extends WP_UnitTestCase {
 
         $resultSet = $this->solr_client->select($query);
 
-        echo print_r($resultSet, true);
-
-        $this->assertEquals(9, $resultSet->getNumFound());
+        // Matching 12 here instead of 9 as each blog will have a hello world post created
+        $this->assertEquals(12, $resultSet->getNumFound());
         $this->assertEquals(0, $indexResult);
     }
 
