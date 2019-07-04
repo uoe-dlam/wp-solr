@@ -204,6 +204,8 @@ class SolrTest extends WP_UnitTestCase {
 
         update_site_option('solr-host', 'bad-host');
 
+        $this->expectException(Solarium\Exception\HttpException::class);
+
         wp_delete_post($postId, true);
 
         $mailer = tests_retrieve_phpmailer_instance();
