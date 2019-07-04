@@ -35,11 +35,11 @@ class SolrTest extends WP_UnitTestCase {
     }
 
     private function setSolrConfigValues() {
-        add_site_option('solr-host', 'localhost');
-        add_site_option('solr-port', 8983);
-        add_site_option('solr-path', '/');
-        add_site_option('solr-core', 'WordPress');
-        add_site_option('solr-email', 'ltw-apps-dev@ed.ac.uk');
+        update_site_option('solr-host', 'localhost');
+        update_site_option('solr-port', 8983);
+        update_site_option('solr-path', '/');
+        update_site_option('solr-core', 'WordPress');
+        update_site_option('solr-email', 'ltw-apps-dev@ed.ac.uk');
     }
 
     private function pingSolr() {
@@ -203,8 +203,6 @@ class SolrTest extends WP_UnitTestCase {
         $postId = $this->factory->post->create(['post_title'=> 'Test Post Title', 'post_content' => 'Test Post Content']);
 
         update_site_option('solr-host', 'bad-host');
-
-        //$this->expectException(Solarium\Exception\HttpException::class);
 
         wp_delete_post($postId, true);
 
