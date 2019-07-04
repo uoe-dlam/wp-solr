@@ -147,6 +147,8 @@ class SolrTest extends WP_UnitTestCase {
         for ($i = 0; $i < 3; $i++) {
             $blogId = $this->factory->blog->create();
 
+            echo "Creating blog ID $blogId";
+
             switch_to_blog($blogId);
             $this->factory->post->create_many(3);
         }
@@ -160,6 +162,8 @@ class SolrTest extends WP_UnitTestCase {
         $query->setQuery('*:*');
 
         $resultSet = $this->solr_client->select($query);
+
+        echo print_r($resultSet, true);
 
         $this->assertEquals(9, $resultSet->getNumFound());
         $this->assertEquals(0, $indexResult);
