@@ -144,7 +144,7 @@ class SolrTest extends WP_UnitTestCase {
      * @group multisite
      */
     public function test_index_site_for_multisite() {
-        for ($i = 0; $i < 3; $i++) {
+        /*for ($i = 0; $i < 3; $i++) {
             $blogId = $this->factory->blog->create();
 
             echo "Creating blog ID $blogId";
@@ -155,7 +155,7 @@ class SolrTest extends WP_UnitTestCase {
 
         $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
 
-        $indexResult = $solrAdmin->index_all_blogs_in_solr();
+        $indexResult = $solrAdmin->index_all_blogs_in_solr();*/
 
         $query = $this->solr_client->createSelect();
 
