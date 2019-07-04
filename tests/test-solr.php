@@ -18,6 +18,8 @@ class SolrTest extends WP_UnitTestCase {
     }
 
     public function tearDown() {
+        $this->setSolrConfigValues();
+
         $solr_client = $this->getSolrClient();
 
         $update = $solr_client->createUpdate();
