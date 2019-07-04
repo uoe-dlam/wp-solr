@@ -203,12 +203,10 @@ class SolrTest extends WP_UnitTestCase {
 
         update_site_option('solr-host', 'bad-host');
 
-        echo "Deleting the post $postId";
-        $mailer = tests_retrieve_phpmailer_instance();
         wp_delete_post($postId, true);
 
-        echo 'The last message ID is ' . $mailer->getLastMessageId();
-        echo 'The class methods are '. print_r(get_class_methods($mailer), true);
+        $mailer = tests_retrieve_phpmailer_instance();
+        echo 'The mailer in the test is ' . print_r($mailer, true);
         $email = $mailer->get_sent();
 
         $this->assertSame('Solr Deletion Error', $email->subject);
