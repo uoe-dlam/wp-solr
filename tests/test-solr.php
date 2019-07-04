@@ -208,7 +208,7 @@ class SolrTest extends WP_UnitTestCase {
         $email = $mailer->get_sent();
 
         $this->assertSame('Solr Deletion Error', $email->subject);
-        $this->assertSame(get_site_option('solr-email'), $mailer->get_recipient()->address);
+        $this->assertSame(get_site_option('solr-email'), $mailer->get_recipient('to', 0)->address);
         $this->assertSame("Error deleting post ID: $postId", $email->body);
     }
 }
