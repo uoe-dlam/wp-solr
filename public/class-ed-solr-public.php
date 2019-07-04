@@ -138,7 +138,7 @@ class Ed_Solr_Public {
 
 	    try {
             $solr_client->update($update);
-        } catch (Exception $e) {
+        } catch (Solarium\Exception\HttpException $e) {
             wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
         }
     }
