@@ -112,8 +112,8 @@ class Ed_Solr_Search {
 	 */
 	private function get_query_string() {
 		$query_string  = 'blogId:(' . implode( ' OR ', $this->blog_ids ) . ')';
-		$query_string .= ' AND (postTitle:"' . $this->keywords . '"';
-		$query_string .= ' OR postContent:"' . $this->keywords . '")';
+		$query_string .= ' AND postTitle:(' . $this->keywords . ')';
+		$query_string .= ' OR postContent:(' . $this->keywords . ')';
 
 		if ( ! $this->show_ease ) {
 			$query_string .= ' AND easeOnly:0';
