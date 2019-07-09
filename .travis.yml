@@ -33,6 +33,7 @@ env:
   - WP_VERSION=5.0 WP_MULTISITE=0
   - WP_VERSION=4.9 WP_MULTISITE=1
   - WP_VERSION=4.9 WP_MULTISITE=0
+  - WP_TRAVISCI=phpcs
 
 matrix:
   exclude:
