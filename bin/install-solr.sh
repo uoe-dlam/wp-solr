@@ -50,8 +50,6 @@ download_and_run() {
 
     download $url $dir_name
 
-    cp schema.xml $dir_name/example/solr/conf
-
     run_solr $dir_name $SOLR_PORT
     create_collection $dir_name $SOLR_COLLECTION $SOLR_PORT
 }
