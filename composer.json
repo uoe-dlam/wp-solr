@@ -1,8 +1,5 @@
 {
     "require": {
         "solarium/solarium": "^5.0"
-    },
-    "require-dev": {
-        "phpcompatibility/phpcompatibility-wp": "^2.0"
     }
 }
