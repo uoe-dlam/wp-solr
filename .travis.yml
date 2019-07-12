@@ -65,8 +65,6 @@ before_script:
       composer global require wp-coding-standards/wpcs
       composer global require phpcompatibility/phpcompatibility-wp
       phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$HOME/.composer/vendor/phpcompatibility/phpcompatibility-wp
-      phpcs -i
-      ls $HOME/.composer/vendor/phpcompatibility/phpcompatibility-wp
     fi
   - composer install
   - bash bin/install-solr.sh
