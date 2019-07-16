@@ -1,6 +1,6 @@
 <?php
 /**
- * Fired during plugin activation
+ * Maps wp posts to solr documents.
  *
  * @link       http://example.com
  * @since      1.0.0

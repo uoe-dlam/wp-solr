@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Define the internationalization functionality
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
+ * Pagination class for Ed_Solr_Search
  *
  * @link       http://example.com
  * @since      1.0.0
@@ -14,7 +11,7 @@
  */
 
 /**
- * Utility functions.
+ * Pagination for Ed_Solr_Search.
  *
  * @since      1.0.0
  * @package    Ed_Solr

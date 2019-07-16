@@ -42,8 +42,8 @@ class Ed_Solr_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param    string    $ed_solr    The name of this plugin.
-	 * @param    string    $version    The version of this plugin.
+	 * @param    string $ed_solr    The name of this plugin.
+	 * @param    string $version    The version of this plugin.
 	 */
 	public function __construct( $ed_solr, $version ) {
 		$this->ed_solr = $ed_solr;
@@ -149,13 +149,13 @@ class Ed_Solr_Admin {
 		exit;
 	}
 
-    /**
-     * Index all blogs in a WordPress instance into Apache Solr.
-     *
-     * @return int
-     */
+	/**
+	 * Index all blogs in a WordPress instance into Apache Solr.
+	 *
+	 * @return int
+	 */
 	public function index_all_blogs_in_solr() {
-         $solr_client = new Solarium\Client(
+		$solr_client = new Solarium\Client(
 			[
 				'endpoint' => [
 					'localhost' => [
@@ -180,8 +180,8 @@ class Ed_Solr_Admin {
 			$posts = get_posts( -1 );
 
 			foreach ( $posts as $post ) {
-                $mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
-                $update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
+				$mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
+				$update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
 				$documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
 			}
 		}
@@ -192,7 +192,7 @@ class Ed_Solr_Admin {
 		$result = $solr_client->update( $update );
 
 		return $result->getStatus();
-    }
+	}
 
 	/**
 	 * Register the default Solr server settings with WordPress.
