@@ -208,6 +208,21 @@ class SolrTest extends WP_UnitTestCase {
         $this->assertEquals( 1, count( $solr_search->posts ) );
     }
 
+    public function test_one_keyword_present_in_post_but_not_other_search() {
+        $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content', 'post_type' => 'post' ) );
+
+        $args = array(
+            'keywords'        => 'Post Missing',
+            'blog_ids'        => array(1),
+            'current_page'    => 1,
+            'show_ease'       => true
+        );
+
+        $solr_search = new Ed_Solr_Search( $args );
+
+        $this->assertEquals( 0, count( $solr_search->posts ) );
+    }
+
     public function test_search_only_returns_posts_for_specified_blogs() {
         $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content', 'post_type' => 'post' ) );
 
