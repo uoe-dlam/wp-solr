@@ -1,15 +1,4 @@
 <?php
-
-/**
- * Search solr for documents matching user search.
- *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Ed_Solr
- * @subpackage Ed_Solr/includes
- */
-
 /**
  * Searches solr for entries.
  *

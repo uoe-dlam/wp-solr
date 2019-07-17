@@ -1,15 +1,4 @@
 <?php
-
-/**
- * Register all actions and filters for the plugin
- *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Ed_Solr
- * @subpackage Ed_Solr/includes
- */
-
 /**
  * Register all actions and filters for the plugin.
  *

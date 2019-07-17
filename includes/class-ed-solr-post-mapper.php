@@ -1,14 +1,5 @@
 <?php
 /**
- * Maps wp posts to solr documents.
- *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Ed_Solr
- * @subpackage Ed_Solr/includes
- */
-/**
  * Maps posts to documents.
  *
  * @since      1.0.0

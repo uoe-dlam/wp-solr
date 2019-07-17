@@ -1,15 +1,4 @@
 <?php
-
-/**
- * Pagination class for Ed_Solr_Search
- *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Ed_Solr
- * @subpackage Ed_Solr/includes
- */
-
 /**
  * Pagination for Ed_Solr_Search.
  *
