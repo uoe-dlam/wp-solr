@@ -27,7 +27,7 @@ class Ed_Solr_Pagination {
 			'prev_text' => '&laquo;', // «.
 			'next_text' => '&raquo;', // ».
 			'format'    => '',
-			'base'      => @add_query_arg( 'page', '%#%' ),
+			'base'      => add_query_arg( 'page', '%#%' ),
 		);
 
 		if ( $args['total'] <= 1 ) { // do not return anything if there are not enough posts.
