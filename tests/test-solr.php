@@ -208,11 +208,13 @@ class SolrTest extends WP_UnitTestCase {
         $this->assertEquals( 1, count( $solr_search->posts ) );
     }
 
-    public function test_one_keyword_present_in_post_but_not_other_search() {
+    public function test_priority_given_to_post_with_more_keyword_matches() {
         $this->factory->post->create( array( 'post_title' => 'Test Post Title', 'post_content' => 'Test Post Content', 'post_type' => 'post' ) );
+        $this->factory->post->create( array( 'post_title' => 'Test Post Title 2', 'post_content' => 'Test Post Content 2', 'post_type' => 'post' ) );
+        $this->factory->post->create( array( 'post_title' => 'Another Test Post Title', 'post_content' => 'Another Test Post Content', 'post_type' => 'post' ) );
 
         $args = array(
-            'keywords'        => 'Post Missing',
+            'keywords'        => 'Post 2',
             'blog_ids'        => array(1),
             'current_page'    => 1,
             'show_ease'       => true
@@ -220,7 +222,8 @@ class SolrTest extends WP_UnitTestCase {
 
         $solr_search = new Ed_Solr_Search( $args );
 
-        $this->assertEquals( 0, count( $solr_search->posts ) );
+        $this->assertEquals( 3, count( $solr_search->posts ) );
+        $this->assertEquals( 'Test Post Title 2', $solr_search->posts[0]->post_title );
     }
 
     public function test_search_only_returns_posts_for_specified_blogs() {
