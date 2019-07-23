@@ -2,15 +2,6 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Ed_Solr
- * @subpackage Ed_Solr/public
- */
-/**
- * The public-facing functionality of the plugin.
- *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
@@ -40,8 +31,8 @@ class Ed_Solr_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $ed_solr       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $ed_solr       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $ed_solr, $version ) {
 		$this->ed_solr = $ed_solr;
@@ -97,24 +88,14 @@ class Ed_Solr_Public {
 	 */
 	public function store_post( $post_id ) {
 		$solr_client = $this->get_solr_client();
-
+    
 		$update = $solr_client->createUpdate();
 
 		$blog_id = get_current_blog_id();
 		$post    = get_post( $post_id );
 
-		$document = $update->createDocument();
-
-		$document->id          = $blog_id . '_' . $post->ID;
-		$document->blogId      = $blog_id;
-		$document->postId      = $post->ID;
-		$document->postAuthor  = $post->post_author;
-		$document->postDate    = $post->post_date;
-		$document->postTitle   = $post->post_title;
-		$document->postContent = $post->post_content;
-		$document->postExcerpt = $post->post_excerpt;
-
-		$update->addDocument( $document );
+		$mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
+		$update->addDocument( $mapper->get_document_from_post( $post, $blog_id ) );
 		$update->addCommit();
 
 		$result = $solr_client->update( $update );
