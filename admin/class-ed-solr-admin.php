@@ -150,10 +150,12 @@ class Ed_Solr_Admin {
 			[
 				'endpoint' => [
 					'localhost' => [
-						'host' => get_site_option( 'solr-host' ),
-						'port' => get_site_option( 'solr-port' ),
-						'path' => get_site_option( 'solr-path' ),
-						'core' => get_site_option( 'solr-core' ),
+						'host'     => get_site_option( 'solr-host' ),
+						'port'     => get_site_option( 'solr-port' ),
+						'path'     => get_site_option( 'solr-path' ),
+						'core'     => get_site_option( 'solr-core' ),
+						'username' => get_site_option( 'solr-username' ),
+						'password' => get_site_option( 'solr-password' ),
 					],
 				],
 			]
@@ -191,11 +193,13 @@ class Ed_Solr_Admin {
 	 * @since   1.0.0
 	 */
 	public function register_solr_settings() {
-		add_site_option( 'solr-host', 'localhost' );
-		add_site_option( 'solr-port', '8983' );
-		add_site_option( 'solr-path', '/' );
-		add_site_option( 'solr-core', 'WordPress' );
+		add_site_option( 'solr-host', '' );
+		add_site_option( 'solr-port', '' );
+		add_site_option( 'solr-path', '' );
+		add_site_option( 'solr-core', '' );
 		add_site_option( 'solr-email', '' );
+		add_site_option( 'solr-username', '' );
+		add_site_option( 'solr-password', '' );
 	}
 
 	/**
@@ -229,6 +233,8 @@ class Ed_Solr_Admin {
 			update_site_option( 'solr-path', sanitize_text_field( $_POST['solr-path'] ) );
 			update_site_option( 'solr-core', sanitize_text_field( $_POST['solr-core'] ) );
 			update_site_option( 'solr-email', sanitize_email( $_POST['solr-email'] ) );
+			update_site_option( 'solr-username', sanitize_text_field( $_POST['solr-username'] ) );
+			update_site_option( 'solr-password', sanitize_text_field( $_POST['solr-password'] ) );
 
 			wp_redirect(
 				esc_url_raw(

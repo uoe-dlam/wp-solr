@@ -50,6 +50,22 @@
 						<input id="solr-core" name="solr-core" value="<?php echo get_site_option( 'solr-core' ); ?>" required>
 					</td>
 				</tr>
+                <tr>
+                    <th scope="row">
+                        <label for="solr-username">Username:</label>
+                    </th>
+                    <td>
+                        <input id="solr-username" name="solr-username" value="<?php echo get_site_option( 'solr-username' ); ?>" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="solr-password">Password:</label>
+                    </th>
+                    <td>
+                        <input id="solr-password" name="solr-password" value="<?php echo get_site_option( 'solr-password' ); ?>" required>
+                    </td>
+                </tr>
 				<tr>
 					<th scope="row">
 						<label for="solr-email">Error Report Email:</label>
