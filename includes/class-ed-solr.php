@@ -1,18 +1,4 @@
 <?php
-
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Ed_Solr
- * @subpackage Ed_Solr/includes
- */
-
 /**
  * The core plugin class.
  *
@@ -121,6 +107,22 @@ class Ed_Solr {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-ed-solr-public.php';
+
+		/**
+		 * The class responsible for searching solr
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-search.php';
+
+		/**
+		 * solr pagination class
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-pagination.php';
+
+		/**
+		 * solr mapper class
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-post-mapper.php';
 
 		$this->loader = new Ed_Solr_Loader();
 

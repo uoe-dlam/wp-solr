@@ -2,15 +2,6 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Ed_Solr
- * @subpackage Ed_Solr/admin
- */
-/**
- * The admin-specific functionality of the plugin.
- *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
@@ -42,8 +33,8 @@ class Ed_Solr_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param    string    $ed_solr    The name of this plugin.
-	 * @param    string    $version    The version of this plugin.
+	 * @param    string $ed_solr    The name of this plugin.
+	 * @param    string $version    The version of this plugin.
 	 */
 	public function __construct( $ed_solr, $version ) {
 		$this->ed_solr = $ed_solr;
@@ -149,13 +140,13 @@ class Ed_Solr_Admin {
 		exit;
 	}
 
-    /**
-     * Index all blogs in a WordPress instance into Apache Solr.
-     *
-     * @return int
-     */
+	/**
+	 * Index all blogs in a WordPress instance into Apache Solr.
+	 *
+	 * @return int
+	 */
 	public function index_all_blogs_in_solr() {
-         $solr_client = new Solarium\Client(
+		$solr_client = new Solarium\Client(
 			[
 				'endpoint' => [
 					'localhost' => [
@@ -180,18 +171,9 @@ class Ed_Solr_Admin {
 			$posts = get_posts( -1 );
 
 			foreach ( $posts as $post ) {
-				$document = $update->createDocument();
-
-				$document->id          = $blog->blog_id . '_' . $post->ID;
-				$document->blogId      = $blog->blog_id;
-				$document->postId      = $post->ID;
-				$document->postAuthor  = $post->post_author;
-				$document->postDate    = $post->post_date;
-				$document->postTitle   = $post->post_title;
-				$document->postContent = $post->post_content;
-				$document->postExcerpt = $post->post_excerpt;
-
-				$documents[] = $document;
+				$mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
+				$update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
+				$documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
 			}
 		}
 
@@ -201,7 +183,7 @@ class Ed_Solr_Admin {
 		$result = $solr_client->update( $update );
 
 		return $result->getStatus();
-    }
+	}
 
 	/**
 	 * Register the default Solr server settings with WordPress.
