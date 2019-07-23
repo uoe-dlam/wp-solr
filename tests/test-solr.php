@@ -40,6 +40,8 @@ class SolrTest extends WP_UnitTestCase {
         update_site_option('solr-path', '/');
         update_site_option('solr-core', 'WordPress');
         update_site_option('solr-email', 'ltw-apps-dev@ed.ac.uk');
+        update_site_option('solr-username', 'solr');
+        update_site_option('solr-password', 'SolrRocks');
     }
 
     private function pingSolr() {
@@ -64,6 +66,8 @@ class SolrTest extends WP_UnitTestCase {
                         'port' => get_site_option( 'solr-port' ),
                         'path' => get_site_option( 'solr-path' ),
                         'core' => get_site_option( 'solr-core' ),
+                        'username' => get_site_option( 'solr-username' ),
+                        'password' => get_site_option( 'solr-password' ),
                     ],
                 ],
             ]

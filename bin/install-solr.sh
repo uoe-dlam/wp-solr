@@ -23,7 +23,7 @@ run_solr() {
     dir_name=$1
     solr_port=$2
 
-    ./$dir_name/bin/solr -p $solr_port -c
+    ./$dir_name/bin/solr -p $solr_port
     echo "Started"
 }
 
@@ -31,7 +31,7 @@ create_collection() {
     dir_name=$1
     name=$2
     solr_port=$3
-    ./$dir_name/bin/solr create -c $name -shards 1 -replicationFactor 1 -p $solr_port
+    ./$dir_name/bin/solr create -c $name -p $solr_port
     echo "Created collection $name"
 }
 
@@ -49,6 +49,11 @@ download_and_run() {
     esac
 
     download $url $dir_name
+
+    echo SOLR_AUTH_TYPE=\"basic\" >> $dir_name/bin/solr.in.sh
+    echo SOLR_AUTHENTICATION_OPTS=\"-Dbasicauth=solr:SolrRocks\" >> $dir_name/bin/solr.in.sh
+
+    cp security.json $dir_name/server/solr
 
     run_solr $dir_name $SOLR_PORT
     create_collection $dir_name $SOLR_COLLECTION $SOLR_PORT

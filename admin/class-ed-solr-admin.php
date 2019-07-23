@@ -149,20 +149,22 @@ class Ed_Solr_Admin {
 		exit;
 	}
 
-    /**
-     * Index all blogs in a WordPress instance into Apache Solr.
-     *
-     * @return int
-     */
+	/**
+	 * Index all blogs in a WordPress instance into Apache Solr.
+	 *
+	 * @return int
+	 */
 	public function index_all_blogs_in_solr() {
-         $solr_client = new Solarium\Client(
+		$solr_client = new Solarium\Client(
 			[
 				'endpoint' => [
 					'localhost' => [
-						'host' => get_site_option( 'solr-host' ),
-						'port' => get_site_option( 'solr-port' ),
-						'path' => get_site_option( 'solr-path' ),
-						'core' => get_site_option( 'solr-core' ),
+						'host'     => get_site_option( 'solr-host' ),
+						'port'     => get_site_option( 'solr-port' ),
+						'path'     => get_site_option( 'solr-path' ),
+						'core'     => get_site_option( 'solr-core' ),
+						'username' => get_site_option( 'solr-username' ),
+						'password' => get_site_option( 'solr-password' ),
 					],
 				],
 			]
@@ -201,7 +203,7 @@ class Ed_Solr_Admin {
 		$result = $solr_client->update( $update );
 
 		return $result->getStatus();
-    }
+	}
 
 	/**
 	 * Register the default Solr server settings with WordPress.
@@ -214,6 +216,8 @@ class Ed_Solr_Admin {
 		add_site_option( 'solr-path', '' );
 		add_site_option( 'solr-core', '' );
 		add_site_option( 'solr-email', '' );
+		add_site_option( 'solr-username', '' );
+		add_site_option( 'solr-password', '' );
 	}
 
 	/**
@@ -247,6 +251,8 @@ class Ed_Solr_Admin {
 			update_site_option( 'solr-path', sanitize_text_field( $_POST['solr-path'] ) );
 			update_site_option( 'solr-core', sanitize_text_field( $_POST['solr-core'] ) );
 			update_site_option( 'solr-email', sanitize_email( $_POST['solr-email'] ) );
+			update_site_option( 'solr-username', sanitize_text_field( $_POST['solr-username'] ) );
+			update_site_option( 'solr-password', sanitize_text_field( $_POST['solr-password'] ) );
 
 			wp_redirect(
 				esc_url_raw(

@@ -96,7 +96,7 @@ class Ed_Solr_Public {
 	 * @return void
 	 */
 	public function store_post( $post_id ) {
-	    $solr_client = $this->get_solr_client();
+		$solr_client = $this->get_solr_client();
 
 		$update = $solr_client->createUpdate();
 
@@ -125,36 +125,38 @@ class Ed_Solr_Public {
 	}
 
 	public function delete_post( $post_id ) {
-	    if (empty(get_site_option('solr-host'))) {
-	        return;
-        }
+		if ( empty( get_site_option( 'solr-host' ) ) ) {
+			return;
+		}
 
-	    $solr_client = $this->get_solr_client();
+		$solr_client = $this->get_solr_client();
 
-	    $update = $solr_client->createUpdate();
+		$update = $solr_client->createUpdate();
 
-	    $update->addDeleteById( get_current_blog_id() . '_' . $post_id );
-	    $update->addCommit();
+		$update->addDeleteById( get_current_blog_id() . '_' . $post_id );
+		$update->addCommit();
 
-	    try {
-            $solr_client->update($update);
-        } catch (Solarium\Exception\HttpException $e) {
-            wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
-        }
-    }
+		try {
+			$solr_client->update( $update );
+		} catch ( Solarium\Exception\HttpException $e ) {
+			wp_mail( get_site_option( 'solr-email' ), 'Solr Deletion Error', "Error deleting post ID: $post_id" );
+		}
+	}
 
-    private function get_solr_client() {
-        return new Solarium\Client(
-            [
-                'endpoint' => [
-                    'localhost' => [
-                        'host' => get_site_option( 'solr-host' ),
-                        'port' => get_site_option( 'solr-port' ),
-                        'path' => get_site_option( 'solr-path' ),
-                        'core' => get_site_option( 'solr-core' ),
-                    ],
-                ],
-            ]
-        );
-    }
+	private function get_solr_client() {
+		return new Solarium\Client(
+			[
+				'endpoint' => [
+					'localhost' => [
+						'host'     => get_site_option( 'solr-host' ),
+						'port'     => get_site_option( 'solr-port' ),
+						'path'     => get_site_option( 'solr-path' ),
+						'core'     => get_site_option( 'solr-core' ),
+						'username' => get_site_option( 'solr-username' ),
+						'password' => get_site_option( 'solr-password' ),
+					],
+				],
+			]
+		);
+	}
 }
