@@ -45,6 +45,8 @@ class Ed_Solr_Search {
 						'port' => get_site_option( 'solr-port' ),
 						'path' => get_site_option( 'solr-path' ),
 						'core' => get_site_option( 'solr-core' ),
+                        'username' => get_site_option( 'solr-username' ),
+                        'password' => get_site_option( 'solr-password' ),
 					],
 				],
 			]
