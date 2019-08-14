@@ -19,7 +19,6 @@ cache:
     - $TRAVIS_BUILD_DIR/apache-solr-8.0.0.tgz
 
 php:
-  - 7.4snapshot
   - 7.3
   - 7.2
   - 7.1
