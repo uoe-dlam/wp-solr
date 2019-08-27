@@ -3,6 +3,8 @@
 SOLR_PORT=${SOLR_PORT:-8983}
 SOLR_VERSION=${SOLR_VERSION:-8.0.0}
 SOLR_COLLECTION=${SOLR_COLLECTION:-"WordPress"}
+SOLR_USERNAME=solr
+SOLR_PASSWORD=SolrRocks
 
 download() {
     FILE="$2.tgz"
@@ -35,6 +37,16 @@ create_collection() {
     echo "Created collection $name"
 }
 
+create_schema() {
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postId", "type":"plongs", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"blogId", "type":"plongs", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"easeOnly", "type":"plongs", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postAuthor", "type":"plongs", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postDate", "type":"pdates", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postTitle", "type":"text_en", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postContent", "type":"text_en", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+}
+
 download_and_run() {
     version=$1
 
@@ -51,12 +63,15 @@ download_and_run() {
     download $url $dir_name
 
     echo SOLR_AUTH_TYPE=\"basic\" >> $dir_name/bin/solr.in.sh
-    echo SOLR_AUTHENTICATION_OPTS=\"-Dbasicauth=solr:SolrRocks\" >> $dir_name/bin/solr.in.sh
+    echo SOLR_AUTHENTICATION_OPTS=\"-Dbasicauth=$SOLR_USERNAME:$SOLR_PASSWORD\" >> $dir_name/bin/solr.in.sh
 
     cp security.json $dir_name/server/solr
 
     run_solr $dir_name $SOLR_PORT
     create_collection $dir_name $SOLR_COLLECTION $SOLR_PORT
+
+    create_schema
 }
 
 download_and_run $SOLR_VERSION
+
