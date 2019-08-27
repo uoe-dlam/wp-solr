@@ -171,6 +171,31 @@ class SolrTest extends WP_UnitTestCase {
     }
 
     /**
+     * @group multisite
+     */
+    public function test_index_site_indexes_more_than_first_100_sites() {
+        for ($i = 0; $i < 110; $i++) {
+            $blogId = $this->factory->blog->create();
+
+            switch_to_blog($blogId);
+            $this->factory->post->create();
+        }
+
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
+
+        $indexResult = $solrAdmin->index_all_blogs_in_solr();
+
+        $query = $this->solr_client->createSelect();
+
+        $query->setQuery('*:*');
+
+        $resultSet = $this->solr_client->select($query);
+
+        $this->assertEquals(110, $resultSet->getNumFound());
+        $this->assertEquals(0, $indexResult);
+    }
+
+    /**
      * @group singlesite
      */
     public function test_index_site() {
