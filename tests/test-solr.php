@@ -178,7 +178,7 @@ class SolrTest extends WP_UnitTestCase {
             $blogId = $this->factory->blog->create();
 
             switch_to_blog($blogId);
-            $this->factory->post->create();
+            $this->factory->post->create_many(1);
         }
 
         $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
