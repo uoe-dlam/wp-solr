@@ -191,7 +191,8 @@ class SolrTest extends WP_UnitTestCase {
 
         $resultSet = $this->solr_client->select($query);
 
-        $this->assertEquals(110, $resultSet->getNumFound());
+        // Matching 220 here instead of 110 as each blog will have a hello world post created
+        $this->assertEquals(220, $resultSet->getNumFound());
         $this->assertEquals(0, $indexResult);
     }
 
