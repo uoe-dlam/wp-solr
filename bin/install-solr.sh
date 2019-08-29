@@ -43,8 +43,8 @@ create_schema() {
     curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"easeOnly", "type":"plongs", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
     curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postAuthor", "type":"plongs", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
     curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postDate", "type":"pdates", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
-    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postTitle", "type":"text_en", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
-    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postContent", "type":"text_en", "multiValued":false, "stored":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postTitle", "type":"text_en", "multiValued":false, "stored":true, "indexed":true}}' http://localhost:8983/solr/WordPress/schema
+    curl --user $SOLR_USERNAME:$SOLR_PASSWORD -X POST -H 'Content-type:application/json' --data-binary '{"add-field": {"name":"postContent", "type":"text_en", "multiValued":false, "stored":true, "indexed":true}}' http://localhost:8983/solr/WordPress/schema
 }
 
 download_and_run() {
