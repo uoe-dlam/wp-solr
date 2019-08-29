@@ -163,7 +163,7 @@ class Ed_Solr_Admin {
 
 		$update = $solr_client->createUpdate();
 
-		$blogs = get_sites();
+		$blogs = get_sites('number', '200000');
 
 		$documents = [];
 

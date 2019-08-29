@@ -49,11 +49,11 @@ class Ed_Solr_Post_Mapper {
 	 */
 	public function get_post_from_document() {
 		$post               = new stdClass();
-		$post->BLOG_ID      = $this->document['blogId'][0];
-		$post->ID           = $this->document['postId'][0];
-		$post->post_title   = $this->document['postTitle'][0];
-		$post->post_content = $this->document['postContent'][0];
-		$post->post_date    = $this->document['postDate'][0];
+		$post->BLOG_ID      = $this->document['blogId'];
+		$post->ID           = $this->document['postId'];
+		$post->post_title   = $this->document['postTitle'];
+		$post->post_content = $this->document['postContent'];
+		$post->post_date    = $this->document['postDate'];
 		return $post;
 	}
 }
