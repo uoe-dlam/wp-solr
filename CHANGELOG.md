@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Trashed blog posts are now deleted from the search results (PR #8)
+
 ### Security
 - Updating dependencies to fix vulnerabilities in symfony/cache and symfony/var-exporter (PR #7)
 
