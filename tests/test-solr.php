@@ -350,7 +350,10 @@ class SolrTest extends WP_UnitTestCase {
     {
         $this->factory->post->create_many(10);
 
-        wp_trash_post(1);
+        //wp_trash_post(1);
+        $posts = get_posts();
+
+        die(print_r($posts, true));
 
         $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
 
