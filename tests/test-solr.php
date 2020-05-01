@@ -348,12 +348,9 @@ class SolrTest extends WP_UnitTestCase {
 
     public function test_do_not_index_trashed_posts()
     {
-        $this->factory->post->create_many(10);
+        $postIds = $this->factory->post->create_many(10);
 
-        //wp_trash_post(1);
-        $posts = get_posts();
-
-        die(print_r($posts, true));
+        wp_trash_post($postIds[1]);
 
         $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
 
