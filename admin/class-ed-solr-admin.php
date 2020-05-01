@@ -173,9 +173,11 @@ class Ed_Solr_Admin {
 			$posts = get_posts( -1 );
 
 			foreach ( $posts as $post ) {
-				$mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
-				$update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
-				$documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
+			    if ($post->post_status === 'publish') {
+                    $mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
+                    $update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
+                    $documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
+                }
 			}
 		}
 
