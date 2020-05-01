@@ -345,5 +345,39 @@ class SolrTest extends WP_UnitTestCase {
 
         $this->assertEquals( 1, count( $solr_search->posts ) );
     }
-  
+
+    public function test_do_not_index_trashed_posts()
+    {
+        $this->factory->post->create_many(10);
+
+        wp_trash_post(1);
+
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
+
+        $indexResult = $solrAdmin->index_all_blogs_in_solr();
+
+        $query = $this->solr_client->createSelect();
+
+        $query->setQuery('*:*');
+
+        $resultSet = $this->solr_client->select($query);
+
+        $this->assertEquals(9, $resultSet->getNumFound());
+        $this->assertEquals(0, $indexResult);
+    }
+
+    public function test_trash_posts_removed_from_index()
+    {
+        $postId = $this->factory->post->create(['post_title' => 'Test Post Title', 'post_content' => 'Test Post Content']);
+
+        wp_trash_post($postId);
+
+        $query = $this->solr_client->createSelect();
+
+        $query->setQuery('postTitle:"Test Post Title"');
+
+        $resultSet = $this->solr_client->select($query);
+
+        $this->assertEquals(0, $resultSet->getNumFound());
+    }
 }
