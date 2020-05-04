@@ -92,7 +92,7 @@ class Ed_Solr_Admin {
 			'Solr Search',
 			'manage_options',
 			'solr-search',
-			[ $this, 'display_admin_page' ],
+			array( $this, 'display_admin_page' ),
 			'dashicons-search',
 			150
 		);
@@ -103,7 +103,7 @@ class Ed_Solr_Admin {
 			'Solr Server Config',
 			'manage_options',
 			'solr-search-config',
-			[ $this, 'display_config_page' ]
+			array( $this, 'display_config_page' )
 		);
 	}
 
@@ -117,9 +117,9 @@ class Ed_Solr_Admin {
 			wp_redirect(
 				esc_url_raw(
 					add_query_arg(
-						[
+						array(
 							'admin_response' => 'Blogs indexed.',
-						],
+						),
 						network_admin_url( 'admin.php?page=solr-search' )
 					)
 				)
@@ -128,9 +128,9 @@ class Ed_Solr_Admin {
 			wp_redirect(
 				esc_url_raw(
 					add_query_arg(
-						[
+						array(
 							'admin_error' => 'Error indexing blogs. Please contact an admin if this issue persists.',
-						],
+						),
 						network_admin_url( 'admin.php?page=solr-search' )
 					)
 				)
@@ -147,25 +147,25 @@ class Ed_Solr_Admin {
 	 */
 	public function index_all_blogs_in_solr() {
 		$solr_client = new Solarium\Client(
-			[
-				'endpoint' => [
-					'localhost' => [
+			array(
+				'endpoint' => array(
+					'localhost' => array(
 						'host'     => get_site_option( 'solr-host' ),
 						'port'     => get_site_option( 'solr-port' ),
 						'path'     => get_site_option( 'solr-path' ),
 						'core'     => get_site_option( 'solr-core' ),
 						'username' => get_site_option( 'solr-username' ),
 						'password' => get_site_option( 'solr-password' ),
-					],
-				],
-			]
+					),
+				),
+			)
 		);
 
 		$update = $solr_client->createUpdate();
 
-		$blogs = get_sites('number', '200000');
+		$blogs = get_sites( 'number', '200000' );
 
-		$documents = [];
+		$documents = array();
 
 		foreach ( $blogs as $blog ) {
 			switch_to_blog( $blog->blog_id );
@@ -173,9 +173,11 @@ class Ed_Solr_Admin {
 			$posts = get_posts( -1 );
 
 			foreach ( $posts as $post ) {
-				$mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
-				$update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
-				$documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
+				if ( 'publish' === $post->post_status ) {
+					$mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
+					$update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
+					$documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
+				}
 			}
 		}
 
@@ -239,9 +241,9 @@ class Ed_Solr_Admin {
 			wp_redirect(
 				esc_url_raw(
 					add_query_arg(
-						[
+						array(
 							'admin_response' => 'Solr settings updated.',
-						],
+						),
 						network_admin_url( 'admin.php?page=solr-search-config' )
 					)
 				)
@@ -253,10 +255,10 @@ class Ed_Solr_Admin {
 		wp_die(
 			__( 'Invalid nonce specified', $this->ed_solr ),
 			__( 'Error', $this->ed_solr ),
-			[
+			array(
 				'response'  => 403,
 				'back_link' => 'admin.php?page=' . $this->ed_solr,
-			]
+			)
 		);
 	}
 
