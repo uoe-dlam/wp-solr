@@ -4,6 +4,8 @@ class SolrTest extends WP_UnitTestCase {
 
     private $solr_client;
 
+    const CURRENT_VERSION = 1.0.2;
+
     public function setUp() {
         parent::setUp();
 
@@ -155,7 +157,7 @@ class SolrTest extends WP_UnitTestCase {
             $this->factory->post->create_many(3);
         }
 
-        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', self::CURRENT_VERSION);
 
         $indexResult = $solrAdmin->index_all_blogs_in_solr();
 
@@ -181,7 +183,7 @@ class SolrTest extends WP_UnitTestCase {
             $this->factory->post->create();
         }
 
-        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', self::CURRENT_VERSION);
 
         $indexResult = $solrAdmin->index_all_blogs_in_solr();
 
@@ -202,7 +204,7 @@ class SolrTest extends WP_UnitTestCase {
     public function test_index_site() {
         $this->factory->post->create_many(10);
 
-        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', self::CURRENT_VERSION);
 
         $indexResult = $solrAdmin->index_all_blogs_in_solr();
 
@@ -352,7 +354,7 @@ class SolrTest extends WP_UnitTestCase {
 
         wp_trash_post($postIds[1]);
 
-        $solrAdmin = new Ed_Solr_Admin('ed-solr', '1.0.0');
+        $solrAdmin = new Ed_Solr_Admin('ed-solr', self::CURRENT_VERSION);
 
         $indexResult = $solrAdmin->index_all_blogs_in_solr();
 
