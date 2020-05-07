@@ -4,7 +4,7 @@ class SolrTest extends WP_UnitTestCase {
 
     private $solr_client;
 
-    const CURRENT_VERSION = 1.0.2;
+    const CURRENT_VERSION = '1.0.2';
 
     public function setUp() {
         parent::setUp();
