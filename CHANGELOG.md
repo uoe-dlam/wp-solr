@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2020-05-07
+### Fixed
+- When indexing the full site, trashed blogs are no longer included in the search index (PR #9)
+
 ## [1.0.1] - 2020-04-30
 ### Fixed
 - Trashed blog posts are now deleted from the search results (PR #8)
