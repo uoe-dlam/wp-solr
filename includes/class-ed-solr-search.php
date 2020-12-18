@@ -37,7 +37,7 @@ class Ed_Solr_Search {
 	 * @return Solarium\Client
 	 */
 	private function get_solr_client() {
-		return new Solarium\Client(
+	    $client = new Solarium\Client(
 			[
 				'endpoint' => [
 					'localhost' => [
@@ -51,6 +51,10 @@ class Ed_Solr_Search {
 				],
 			]
 		);
+
+        $client->getPlugin('postbigrequest');
+
+        return $client;
 	}
 
 	/**
