@@ -124,6 +124,11 @@ class Ed_Solr {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-post-mapper.php';
 
+		/**
+		 * solr index blogs wp cli
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ed-solr-index-blogs-cli.php';
+
 		$this->loader = new Ed_Solr_Loader();
 
 	}
