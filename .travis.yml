@@ -14,7 +14,7 @@ branches:
 
 cache:
   directories:
-    - $HOME/.composer/cache
+          #- $HOME/.composer/cache
     - $TRAVIS_BUILD_DIR/apache-solr-8.0.0
     - $TRAVIS_BUILD_DIR/apache-solr-8.0.0.tgz
 
