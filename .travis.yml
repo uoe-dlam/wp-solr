@@ -47,14 +47,18 @@ before_script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+      phpunit --version
       composer global require phpunit/phpunit "^7.0.0"
+      phpunit --version
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       composer global require wp-coding-standards/wpcs
       phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$HOME/.composer/vendor/phpcompatibility/phpcompatibility-wp
     fi
+  - phpunit --version
   - composer install
+  - phpunit --version
   - bash bin/install-solr.sh
 
 script:
