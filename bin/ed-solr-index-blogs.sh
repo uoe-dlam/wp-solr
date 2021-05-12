@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 cd /Library/WebServer/Documents/wordpress/wp-content/plugins/wp-solr/includes
 if [ -e run_index_blogs.txt ]
 then
