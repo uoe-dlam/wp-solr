@@ -14,7 +14,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       EdSolr
- * Plugin URI:        https://gitlab.is.ed.ac.uk/is-dlam/academic-blogging-project/ed-solr
+ * Plugin URI:        https://github.com/uoe-dlam/wp-solr
  * Description:       Integrates Apache Solr with a WordPress Multisite Installation.
  * Version:           1.0.2
  * Author:            DLAM Applications Development Team, University of Edinburgh
