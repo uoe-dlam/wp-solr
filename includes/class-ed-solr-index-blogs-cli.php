@@ -9,7 +9,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 *
 		 * @return void
 		 */
-        public function wp_solr_index_blogs_cli() {
+        public function index() {
 
 			$solr_client = new Solarium\Client(
 				array(
@@ -69,6 +69,6 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	  }
     }
     // Add command to the new class
-    WP_CLI::add_command( 'index_blogs_cli', 'ED_Solr_Index_Blogs_CLI' );
+    WP_CLI::add_command( 'solr', 'ED_Solr_Index_Blogs_CLI' );
 
 } 
