@@ -113,80 +113,22 @@ class Ed_Solr_Admin {
 	 * @since   1.0.0
 	 */
 	public function index_blogs() {
-		if ( $this->index_all_blogs_in_solr() === 0 ) {
-			wp_redirect(
-				esc_url_raw(
-					add_query_arg(
-						array(
-							'admin_response' => 'Blogs indexed.',
-						),
-						network_admin_url( 'admin.php?page=solr-search' )
-					)
-				)
-			);
-		} else {
-			wp_redirect(
-				esc_url_raw(
-					add_query_arg(
-						array(
-							'admin_error' => 'Error indexing blogs. Please contact an admin if this issue persists.',
-						),
-						network_admin_url( 'admin.php?page=solr-search' )
-					)
-				)
-			);
-		}
+		$filename = plugin_dir_path( dirname( __FILE__ ) ). 'includes/run_index_blogs.txt';
+		$content = 'Cron job checks if this file exists and runs solr index blogs, if does exist.';
+		$handle = file_put_contents( $filename, $content );
 
-		exit;
-	}
-
-	/**
-	 * Index all blogs in a WordPress instance into Apache Solr.
-	 *
-	 * @return int
-	 */
-	public function index_all_blogs_in_solr() {
-		$solr_client = new Solarium\Client(
-			array(
-				'endpoint' => array(
-					'localhost' => array(
-						'host'     => get_site_option( 'solr-host' ),
-						'port'     => get_site_option( 'solr-port' ),
-						'path'     => get_site_option( 'solr-path' ),
-						'core'     => get_site_option( 'solr-core' ),
-						'username' => get_site_option( 'solr-username' ),
-						'password' => get_site_option( 'solr-password' ),
+		wp_redirect(
+			esc_url_raw(
+				add_query_arg(
+					array(
+						'admin_response' => 'The indexing process has been initiated. You should get an email once it is done.',
 					),
-				),
+					network_admin_url( 'admin.php?page=solr-search' )
+				)
 			)
 		);
 
-		$update = $solr_client->createUpdate();
-
-		$blogs = get_sites( 'number', '200000' );
-
-		$documents = array();
-
-		foreach ( $blogs as $blog ) {
-			switch_to_blog( $blog->blog_id );
-
-			$posts = get_posts( -1 );
-
-			foreach ( $posts as $post ) {
-				if ( 'publish' === $post->post_status ) {
-					$mapper = new Ed_Solr_Post_Mapper( $update->createDocument() );
-					$update->addDocument( $mapper->get_document_from_post( $post, $blog->blog_id ) );
-					$documents[] = $mapper->get_document_from_post( $post, $blog->blog_id );
-				}
-			}
-		}
-
-		$update->addDocuments( $documents );
-		$update->addCommit();
-
-		$result = $solr_client->update( $update );
-
-		return $result->getStatus();
+		exit;
 	}
 
 	/**
