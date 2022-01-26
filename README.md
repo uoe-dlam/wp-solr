@@ -47,3 +47,11 @@ Once you have updated security.json and solr.in.sh you should restart your solr 
   
   
 For more info on securing solr, please visit: [The Solr Website](https://lucene.apache.org/solr/guide/8_0/basic-authentication-plugin.html)
+
+TO RE-INDEX BLOGS:
+
+Make sure that you have WP-CLI installed on the machine
+
+To re-index all of the blog posts run the following command in the root directory of this plugin:
+
+wp solr index
