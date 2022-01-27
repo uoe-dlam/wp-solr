@@ -113,9 +113,6 @@ class Ed_Solr_Admin {
 	 * @since   1.0.0
 	 */
 	public function index_blogs() {
-		$filename = plugin_dir_path( dirname( __FILE__ ) ). 'includes/run_index_blogs.txt';
-		$content = 'Cron job checks if this file exists and runs solr index blogs, if does exist.';
-		$handle = file_put_contents( $filename, $content );
 
 		wp_redirect(
 			esc_url_raw(
