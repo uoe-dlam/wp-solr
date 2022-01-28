@@ -15,21 +15,16 @@
 <div class="wrap">
 	<h1>Index Blogs</h1>
 
-	<p>
-		To re-index all post, you should do the following:<br><br>
+    <p>To re-index all post, you should do the following:</p>
 
-        1. Navigate to the root directory of the wp-solr plugin on your machine/server:<br><br>
+    <p>Prerequisites: You need to make sure that WP-CLI is installed on your machine/server before completing the steps below.</p>
 
-        <code>cd &lt;word_press_root_dir&gt;/wp-content/plugins/wp-solr</word_press_root_dir></code><br><br>
+    <p>1. Navigate to the root directory of the wp-solr plugin on your machine/server:</p>
 
-        2. Run the following command:<br><br>
+    <p><code>cd &lt;word_press_root_dir&gt;/wp-content/plugins/wp-solr</word_press_root_dir></code></p>
 
-        <code>wp solr index</code><br><br>
+    <p>2. Run the following command:</p>
 
-        Prerequisites:<br><br>
-
-        You need to make sure that WP-CLI is installed on your machine/server before doing the above.<br><br>
-
-    </p>
+    <p><code>wp solr index</code></p>
 
 </div>
