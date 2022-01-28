@@ -108,27 +108,6 @@ class Ed_Solr_Admin {
 	}
 
 	/**
-	 * Index all blogs in the external Solr server and redirect for status message.
-	 *
-	 * @since   1.0.0
-	 */
-	public function index_blogs() {
-
-		wp_redirect(
-			esc_url_raw(
-				add_query_arg(
-					array(
-						'admin_response' => 'The indexing process has been initiated. You should get an email once it is done.',
-					),
-					network_admin_url( 'admin.php?page=solr-search' )
-				)
-			)
-		);
-
-		exit;
-	}
-
-	/**
 	 * Register the default Solr server settings with WordPress.
 	 *
 	 * @since   1.0.0

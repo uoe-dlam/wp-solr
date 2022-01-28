@@ -163,7 +163,6 @@ class Ed_Solr {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'network_admin_menu', $plugin_admin, 'add_main_menu' );
-		$this->loader->add_action( 'admin_post_index_blogs', $plugin_admin, 'index_blogs' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_solr_settings' );
 		$this->loader->add_action( 'admin_post_solr_settings', $plugin_admin, 'update_solr_settings' );
 		$this->loader->add_action( 'network_admin_notices', $plugin_admin, 'print_plugin_admin_notices' );

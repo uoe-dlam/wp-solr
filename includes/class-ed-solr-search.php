@@ -1,4 +1,8 @@
 <?php
+
+use Solarium\Core\Client\Adapter\Curl;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 /**
  * Searches solr for entries.
  *
@@ -9,14 +13,14 @@
  */
 class Ed_Solr_Search {
 
-	public $posts      = [];
-	private $blog_ids  = [];
-	private $keywords  = '';
+	public $posts = [];
+	private $blog_ids = [];
+	private $keywords = '';
 	private $show_ease = false;
 	private $solr_client;
-	private $current_page   = 1;
+	private $current_page = 1;
 	private $posts_per_page = 10;
-	private $total_pages    = 0;
+	private $total_pages = 0;
 
 	public function __construct( array $args ) {
 		foreach ( $args as $property => $value ) {
@@ -37,7 +41,9 @@ class Ed_Solr_Search {
 	 * @return Solarium\Client
 	 */
 	private function get_solr_client() {
-	    $client = new Solarium\Client(
+		$client = new Solarium\Client(
+			new Curl(),
+			new EventDispatcher(),
 			[
 				'endpoint' => [
 					'localhost' => [
@@ -52,9 +58,9 @@ class Ed_Solr_Search {
 			]
 		);
 
-        $client->getPlugin('postbigrequest');
+		$client->getPlugin( 'postbigrequest' );
 
-        return $client;
+		return $client;
 	}
 
 	/**
@@ -138,7 +144,6 @@ class Ed_Solr_Search {
 	public function get_total_pages() {
 		return $this->total_pages;
 	}
-
 
 
 }

@@ -1,5 +1,8 @@
 <?php
 
+use Solarium\Core\Client\Adapter\Curl;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	class Ed_Solr_Index_Blogs_CLI extends WP_CLI_Command {
@@ -11,6 +14,8 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 */
 		public function index() {
 			$solr_client = new Solarium\Client(
+				new Curl(),
+				new EventDispatcher(),
 				array(
 					'endpoint' => array(
 						'localhost' => array(
