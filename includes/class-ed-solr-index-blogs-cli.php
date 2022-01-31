@@ -60,7 +60,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
 			if ( ! wp_mail( $to, $subject, $message, $headers ) ) {
-				error_log( 'Background process indexing end - email NOT sent - status code: ' . $status );
+				error_log( 'Could not send background index process ended email.');
 			}
 
 			exit;
