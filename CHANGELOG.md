@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
-- Fix re-indexing of blogs and update solarium version (PR #14)
+- Move re-indexing to the CLI to avoid PHP timeouts and update solarium version.  (PR #14)
 
 ### Changed
 - Updated the plugin link to point to GitHub instead of GitLab (PR #11)

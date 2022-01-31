@@ -7,6 +7,10 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	class Ed_Solr_Index_Blogs_CLI extends WP_CLI_Command {
 
+		public const NO_OF_BLOGS_PER_BATCH = 100;
+		public const ALL_POSTS = - 1;
+		public const MAX_NUMBER_OF_BLOGS = '200000';
+
 		/**
 		 * Index all blogs in a WordPress instance into Apache Solr through WP CLI command.
 		 *
@@ -31,14 +35,14 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			);
 
 			$buffer = $solr_client->getPlugin( 'bufferedadd' );
-			$buffer->setBufferSize( 100 );
+			$buffer->setBufferSize( self::NO_OF_BLOGS_PER_BATCH );
 
-			$blogs = get_sites( 'number', '200000' );
+			$blogs = get_sites( 'number', self::MAX_NUMBER_OF_BLOGS );
 
 			foreach ( $blogs as $blog ) {
 				switch_to_blog( $blog->blog_id );
 
-				$posts = get_posts( - 1 );
+				$posts = get_posts( self::ALL_POSTS );
 
 				foreach ( $posts as $post ) {
 					if ( 'publish' === $post->post_status ) {
@@ -52,13 +56,11 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 			$to      = get_site_option( 'solr-email' );
 			$subject = 'ED BLOGS: background indexing process ended.';
-			$message = '<p>The background indexing process has finished.</p><p>Status message: ' . ( $status === 0 ? 'All good (0)' : 'Something was not right  (' . $status . ')' ) . '<p><p>Thank you.</p>';
+			$message = '<p>The background indexing process has finished.</p><p>Status message: ' . ( $status === 0 ? 'All good' : 'Something was not right  (' . $status . ')' ) . '<p><p>Thank you.</p>';
 			$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
-			if ( wp_mail( $to, $subject, $message, $headers ) ) {
-				error_log( 'Background process indexing end - email sent.' );
-			} else {
-				error_log( 'Background process indexing end - email NOT sent' );
+			if ( ! wp_mail( $to, $subject, $message, $headers ) ) {
+				error_log( 'Background process indexing end - email NOT sent - status code: ' . $status );
 			}
 
 			exit;
