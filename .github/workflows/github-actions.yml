@@ -1,7 +1,6 @@
 name: Solr Integration Tests
 on:
-  pull_request:
-    types: [review_requested]
+  push
 jobs:
   Run-Solr-Integration-Tests:
     strategy:
