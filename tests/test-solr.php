@@ -221,9 +221,9 @@ class SolrTest extends WP_UnitTestCase {
 	public function test_index_site() {
 		$this->factory->post->create_many( 10 );
 
-		$solrAdmin = new Ed_Solr_Admin( 'ed-solr', self::CURRENT_VERSION );
+        $indexBlogsCli = new Ed_Solr_Index_Blogs_CLI();
 
-		$indexResult = $solrAdmin->index_all_blogs_in_solr();
+        $indexBlogsCli->index();
 
 		$query = $this->solr_client->createSelect();
 
@@ -232,7 +232,6 @@ class SolrTest extends WP_UnitTestCase {
 		$resultSet = $this->solr_client->select( $query );
 
 		$this->assertEquals( 10, $resultSet->getNumFound() );
-		$this->assertEquals( 0, $indexResult );
 	}
 
 	public function test_delete_post() {
