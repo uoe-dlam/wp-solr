@@ -10,6 +10,8 @@ jobs:
         multisite: [1, 0]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v2
       - run: export PATH="$HOME/.composer/vendor/bin:$PATH"
       - run: |
           if [[ ! -z "${{ matrix.wp-version }}" ]] ; then
