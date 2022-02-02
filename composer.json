@@ -2,5 +2,9 @@
     "require": {
         "solarium/solarium": "^6.0",
         "symfony/event-dispatcher": "^5.4"
+    },
+    "require-dev": {
+        "yoast/phpunit-polyfills": "^1.0",
+        "wp-cli/wp-cli": "^2.6"
     }
 }
