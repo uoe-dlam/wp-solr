@@ -11,7 +11,7 @@
  * This is important to test the CLI classes.
  */
 if ( ! defined( 'WP_CLI_ROOT' ) ) {
-    define( 'WP_CLI_ROOT', '../vendor/wp-cli/wp-cli' );
+    define( 'WP_CLI_ROOT', __DIR__ . '/../vendor/wp-cli/wp-cli' );
 }
 
 include WP_CLI_ROOT . '/php/utils.php';
