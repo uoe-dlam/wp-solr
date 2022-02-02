@@ -23,7 +23,7 @@ jobs:
       - run: composer install
       - run: bash bin/install-solr.sh
       - run: |
-          if [[ "${{ matrix.multisite }}" -eq "1" ]] ; then
+          if [[ ${{ matrix.multisite }} -eq 1 ]] ; then
             WP_MULTISITE=1 vendor/bin/phpunit --exclude-group singlesite
           else
             vendor/bin/phpunit --exclude-group multisite
