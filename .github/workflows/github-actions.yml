@@ -1,0 +1,19 @@
+name: Solr Integration Tests
+on:
+  pull_request:
+    types: [review_requested]
+jobs:
+  Run-Solr-Integration-Tests:
+    strategy:
+      fail-fast: true
+      matrix:
+        wp-version: [latest, 5.7, 5.6 5.5]
+        multisite: [1, 0]
+    runs-on: ubuntu-latest
+    steps:
+      - run: export PATH="$HOME/.composer/vendor/bin:$PATH"
+      - run: |
+          if [[ ! -z "$WP_VERSION" ]] ; then
+            bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+            composer require phpunit/phpunit ^7.0.0
+          fi
