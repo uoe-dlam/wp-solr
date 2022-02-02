@@ -174,9 +174,9 @@ class SolrTest extends WP_UnitTestCase {
 			$this->factory->post->create_many( 3 );
 		}
 
-		$solrAdmin = new Ed_Solr_Admin( 'ed-solr', self::CURRENT_VERSION );
+        $indexBlogsCli = new Ed_Solr_Index_Blogs_CLI();
 
-		$indexResult = $solrAdmin->index_all_blogs_in_solr();
+        $indexBlogsCli->index();
 
 		$query = $this->solr_client->createSelect();
 
@@ -186,7 +186,6 @@ class SolrTest extends WP_UnitTestCase {
 
 		// Matching 12 here instead of 9 as each blog will have a hello world post created
 		$this->assertEquals( 12, $resultSet->getNumFound() );
-		$this->assertEquals( 0, $indexResult );
 	}
 
 	/**
@@ -200,9 +199,9 @@ class SolrTest extends WP_UnitTestCase {
 			$this->factory->post->create();
 		}
 
-		$solrAdmin = new Ed_Solr_Admin( 'ed-solr', self::CURRENT_VERSION );
+        $indexBlogsCli = new Ed_Solr_Index_Blogs_CLI();
 
-		$indexResult = $solrAdmin->index_all_blogs_in_solr();
+        $indexBlogsCli->index();
 
 		$query = $this->solr_client->createSelect();
 
@@ -397,9 +396,9 @@ class SolrTest extends WP_UnitTestCase {
 
 		wp_trash_post( $postIds[1] );
 
-		$solrAdmin = new Ed_Solr_Admin( 'ed-solr', self::CURRENT_VERSION );
+        $indexBlogsCli = new Ed_Solr_Index_Blogs_CLI();
 
-		$indexResult = $solrAdmin->index_all_blogs_in_solr();
+        $indexBlogsCli->index();
 
 		$query = $this->solr_client->createSelect();
 
@@ -408,7 +407,6 @@ class SolrTest extends WP_UnitTestCase {
 		$resultSet = $this->solr_client->select( $query );
 
 		$this->assertEquals( 9, $resultSet->getNumFound() );
-		$this->assertEquals( 0, $indexResult );
 	}
 
 	public function test_trash_posts_removed_from_index() {
