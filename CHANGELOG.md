@@ -5,13 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.4] - 2022-06-23
 ### Fixed
 - Move re-indexing to the CLI to avoid PHP timeouts and update solarium version.  (PR #14)
 
 ### Changed
 - Updated the plugin link to point to GitHub instead of GitLab (PR #11)
 
-## [1.0.3]
+## [1.0.3] - 2021-05-12
 ### Fixed
 - Changed Solarium client to use post instead of get to stop URI Too Long errors (PR #10)
 
@@ -30,6 +32,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release
 
-[Unreleased]: https://github.com/uoe-dlam/wp-solr/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/uoe-dlam/wp-solr/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/uoe-dlam/wp-solr/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/uoe-dlam/wp-solr/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/uoe-dlam/wp-solr/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/uoe-dlam/wp-solr/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/uoe-dlam/wp-solr/releases/tag/v1.0.0
