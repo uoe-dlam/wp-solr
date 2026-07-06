@@ -350,7 +350,7 @@ class SolrTest extends WP_UnitTestCase {
 	}
 
 	public function test_ease_restricted_search() {
-		$_POST['chk_ease_only'] = 1;
+		$_POST['chk_sso_only'] = 1;
 		$_POST['action']        = 'editpost';
 
 		$id = $this->factory->post->create( array( 'post_title'   => 'Test Post Title',
@@ -372,7 +372,7 @@ class SolrTest extends WP_UnitTestCase {
 	}
 
 	public function test_ease_restricted_posts_return_when_show_ease_turned_on() {
-		$_POST['chk_ease_only'] = 1;
+		$_POST['chk_sso_only'] = 1;
 		$_POST['action']        = 'editpost';
 
 		$id = $this->factory->post->create( array( 'post_title'   => 'Test Post Title',
