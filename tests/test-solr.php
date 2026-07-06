@@ -349,7 +349,7 @@ class SolrTest extends WP_UnitTestCase {
 		$this->assertEquals( 0, count( $solr_search->posts ) );
 	}
 
-	public function test_ease_restricted_search() {
+	public function test_sso_restricted_search() {
 		$_POST['chk_sso_only'] = 1;
 		$_POST['action']        = 'editpost';
 
@@ -371,7 +371,7 @@ class SolrTest extends WP_UnitTestCase {
 		$this->assertEquals( 0, count( $solr_search->posts ) );
 	}
 
-	public function test_ease_restricted_posts_return_when_show_sso_turned_on() {
+	public function test_sso_restricted_posts_return_when_show_sso_turned_on() {
 		$_POST['chk_sso_only'] = 1;
 		$_POST['action']        = 'editpost';
 
