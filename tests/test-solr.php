@@ -278,7 +278,7 @@ class SolrTest extends WP_UnitTestCase {
 			'keywords'     => 'Test Post Title',
 			'blog_ids'     => array( 1 ),
 			'current_page' => 1,
-			'show_ease'    => true
+			'show_sso'    => true
 		);
 
 		$solr_search = new Ed_Solr_Search( $args );
@@ -296,7 +296,7 @@ class SolrTest extends WP_UnitTestCase {
 			'keywords'     => 'Test Title',
 			'blog_ids'     => array( 1 ),
 			'current_page' => 1,
-			'show_ease'    => true
+			'show_sso'    => true
 		);
 
 		$solr_search = new Ed_Solr_Search( $args );
@@ -322,7 +322,7 @@ class SolrTest extends WP_UnitTestCase {
 			'keywords'     => 'Post 2',
 			'blog_ids'     => array( 1 ),
 			'current_page' => 1,
-			'show_ease'    => true
+			'show_sso'    => true
 		);
 
 		$solr_search = new Ed_Solr_Search( $args );
@@ -341,7 +341,7 @@ class SolrTest extends WP_UnitTestCase {
 			'keywords'     => 'Test Post Title',
 			'blog_ids'     => array( 2 ),
 			'current_page' => 1,
-			'show_ease'    => true
+			'show_sso'    => true
 		);
 
 		$solr_search = new Ed_Solr_Search( $args );
@@ -363,7 +363,7 @@ class SolrTest extends WP_UnitTestCase {
 			'keywords'     => 'Test Post Title',
 			'blog_ids'     => array( 1 ),
 			'current_page' => 1,
-			'show_ease'    => false
+			'show_sso'    => false
 		);
 
 		$solr_search = new Ed_Solr_Search( $args );
@@ -371,7 +371,7 @@ class SolrTest extends WP_UnitTestCase {
 		$this->assertEquals( 0, count( $solr_search->posts ) );
 	}
 
-	public function test_ease_restricted_posts_return_when_show_ease_turned_on() {
+	public function test_ease_restricted_posts_return_when_show_sso_turned_on() {
 		$_POST['chk_sso_only'] = 1;
 		$_POST['action']        = 'editpost';
 
@@ -385,7 +385,7 @@ class SolrTest extends WP_UnitTestCase {
 			'keywords'     => 'Test Post Title',
 			'blog_ids'     => array( 1 ),
 			'current_page' => 1,
-			'show_ease'    => true
+			'show_sso'    => true
 		);
 
 		$solr_search = new Ed_Solr_Search( $args );
