@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update the plugin to work with EntraID (PR #19)
+- Update the plugin to work with EntraID instead of ease (PR #19)
 
 ## [1.0.4] - 2022-06-23
 
