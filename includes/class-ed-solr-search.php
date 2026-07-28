@@ -16,7 +16,7 @@ class Ed_Solr_Search {
 	public $posts = [];
 	private $blog_ids = [];
 	private $keywords = '';
-	private $show_ease = false;
+	private $show_sso = false;
 	private $solr_client;
 	private $current_page = 1;
 	private $posts_per_page = 10;
@@ -111,7 +111,7 @@ class Ed_Solr_Search {
 	private function get_query_string() {
 		$query_string = 'blogId:(' . implode( ' OR ', $this->blog_ids ) . ') AND (postTitle:(' . $this->keywords . ') OR postContent:(' . $this->keywords . '))';
 
-		if ( ! $this->show_ease ) {
+		if ( ! $this->show_sso ) {
 			$query_string .= ' AND easeOnly:0';
 		}
 
