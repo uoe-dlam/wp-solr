@@ -36,7 +36,7 @@ class Ed_Solr_Post_Mapper {
 
 		// Grab ease_only value from post if this is a form update since meta values only get set after publish_post/publish_page post is run; i.e. we can't just grab the post_meta value from the db.
 		if ( isset( $_POST['action'] ) && 'editpost' === $_POST['action'] ) {
-			$this->document->easeOnly = (int) $_POST['chk_ease_only'] ?? 0;
+			$this->document->easeOnly = (int) $_POST['chk_sso_only'] ?? 0;
 		} else {
 			$this->document->easeOnly = (int) get_post_meta( $post->ID, 'ease_only', true );
 		}
@@ -81,7 +81,7 @@ class Ed_Solr_Post_Mapper {
 
 		// Grab ease_only value from post if this is a form update since meta values only get set after publish_post/publish_page post is run; i.e. we can't just grab the post_meta value from the db.
 		if ( isset( $_POST['action'] ) && 'editpost' === $_POST['action'] ) {
-			$data['easeOnly'] = (int) $_POST['chk_ease_only'] ?? 0;
+			$data['easeOnly'] = (int) $_POST['chk_sso_only'] ?? 0;
 		} else {
 			$data['easeOnly'] = (int) get_post_meta( $post->ID, 'ease_only', true );
 		}
