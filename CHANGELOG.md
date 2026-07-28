@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a helper so other plugins can find the number of posts belonging to a user (PR #22)
+
 ## [1.1.0] - 2026-07-28
 
 ### Changed
