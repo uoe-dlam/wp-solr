@@ -1,10 +1,13 @@
 <?php
 
+use Solarium\Client;
 use Solarium\Core\Client\Adapter\Curl;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class Ed_Solr_Utils
 {
+	private Client $solr_client;
+
 	public function __construct()
 	{
 		$this->solr_client = $this->get_solr_client();
