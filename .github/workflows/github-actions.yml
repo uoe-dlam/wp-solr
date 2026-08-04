@@ -1,0 +1,30 @@
+name: Solr Integration Tests
+on:
+  push
+jobs:
+  Run-Solr-Integration-Tests:
+    strategy:
+      fail-fast: true
+      matrix:
+        wp-version: [latest, 5.7, 5.6, 5.5]
+        multisite: [1, 0]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v2
+      - run: sudo systemctl start mysql.service
+      - run: sudo update-alternatives --set php /usr/bin/php7.4
+      - run: export PATH="$HOME/.composer/vendor/bin:$PATH"
+      - run: |
+          if [[ ! -z "${{ matrix.wp-version }}" ]] ; then
+            bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 ${{ matrix.wp-version }}
+            composer require phpunit/phpunit ^7.0.0
+          fi
+      - run: composer install
+      - run: bash bin/install-solr.sh
+      - run: |
+          if [[ ${{ matrix.multisite }} -eq 1 ]] ; then
+            WP_MULTISITE=1 vendor/bin/phpunit --exclude-group singlesite
+          else
+            vendor/bin/phpunit --exclude-group multisite
+          fi
