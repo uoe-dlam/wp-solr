@@ -64,9 +64,6 @@ class Ed_Solr_Search {
 	/**
 	 * Load matching posts from Solr and record the total page count.
 	 *
-	 * A single request serves both purposes: numFound gives the page
-	 * count, the documents give the current page of results.
-	 *
 	 * @return void
 	 */
 	private function do_search() {
@@ -76,7 +73,6 @@ class Ed_Solr_Search {
 
 		$query = $this->solr_client->createSelect();
 
-		// Scoring query: user keywords, parsed by edismax across both fields.
 		$dismax = $query->getEDisMax();
 		$dismax->setQueryFields( 'postTitle^2 postContent' );
 		$query->setQuery( $this->keywords );

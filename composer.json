@@ -1,6 +1,6 @@
 {
-    "require": {
-        "solarium/solarium": "^6.0",
-        "symfony/event-dispatcher": "^5.4"
-    }
+  "require": {
+    "solarium/solarium": "^7.0",
+    "symfony/event-dispatcher": "^7.0"
+  }
 }
