@@ -30,9 +30,7 @@ class Ed_Solr_Search {
 		}
 
 		$this->solr_client = $this->get_solr_client();
-		$this->calculate_total_pages();
 		$this->do_search();
-
 	}
 
 	/**
@@ -64,24 +62,10 @@ class Ed_Solr_Search {
 	}
 
 	/**
-	 * Get total no pages associated with search
+	 * Load matching posts from Solr and record the total page count.
 	 *
-	 * @return int
-	 */
-	private function calculate_total_pages() {
-		if ( '' === $this->keywords || empty( $this->blog_ids ) ) {
-			return;
-		}
-
-		$query = $this->solr_client->createSelect();
-		$query->setQuery( $this->get_query_string() );
-		$query->setRows( 0 );
-		$result_set        = $this->solr_client->select( $query );
-		$this->total_pages = ceil( $result_set->getNumFound() / $this->posts_per_page );
-	}
-
-	/**
-	 * Load matching posts from DB.
+	 * A single request serves both purposes: numFound gives the page
+	 * count, the documents give the current page of results.
 	 *
 	 * @return void
 	 */
@@ -91,31 +75,54 @@ class Ed_Solr_Search {
 		}
 
 		$query = $this->solr_client->createSelect();
-		$query->setQuery( $this->get_query_string() );
+
+		// Scoring query: user keywords, parsed by edismax across both fields.
+		$dismax = $query->getEDisMax();
+		$dismax->setQueryFields( 'postTitle^2 postContent' );
+		$query->setQuery( $this->keywords );
+
+		// Non-scoring filters, cached and reused across every search.
+		$this->add_filter_queries( $query );
+
 		$query->setStart( $this->get_start_record() );
 		$query->setRows( $this->posts_per_page );
+
 		$result_set = $this->solr_client->select( $query );
+
+		$this->total_pages = (int) ceil(
+			$result_set->getNumFound() / $this->posts_per_page
+		);
 
 		foreach ( $result_set as $document ) {
 			$mapper        = new Ed_Solr_Post_Mapper( $document );
 			$this->posts[] = $mapper->get_post_from_document();
 		}
-
 	}
 
 	/**
-	 * Build up solr search query from search values
+	 * Attach the blog and visibility restrictions as cached filter queries.
 	 *
-	 * @return string
+	 * blogId uses the terms query parser so the whole list counts as a
+	 * single clause, regardless of how many blogs are in the network.
+	 *
+	 * @param Solarium\QueryType\Select\Query\Query $query Query to modify.
+	 *
+	 * @return void
 	 */
-	private function get_query_string() {
-		$query_string = 'blogId:(' . implode( ' OR ', $this->blog_ids ) . ') AND (postTitle:(' . $this->keywords . ') OR postContent:(' . $this->keywords . '))';
+	private function add_filter_queries( $query ) {
+		$blog_ids = array_filter( array_map( 'intval', $this->blog_ids ) );
 
-		if ( ! $this->show_sso ) {
-			$query_string .= ' AND easeOnly:0';
+		if ( ! empty( $blog_ids ) ) {
+			$query->createFilterQuery( 'blogs' )
+				->setQuery( '{!terms f=blogId}' . implode( ',', $blog_ids ) )
+				->setCache( true );
 		}
 
-		return $query_string;
+		if ( ! $this->show_sso ) {
+			$query->createFilterQuery( 'ease' )
+				->setQuery( 'easeOnly:0' )
+				->setCache( true );
+		}
 	}
 
 	/**
@@ -144,7 +151,6 @@ class Ed_Solr_Search {
 	public function get_total_pages() {
 		return $this->total_pages;
 	}
-
 
 }
 
