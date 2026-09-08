@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed the way we search multiple blogs so that we don't breach Solr's clause limit. Also upgraded Solarium and Symfony Event Dispatcher (PR #25)
+
 ## [1.1.1] - 2026-07-28
 
 ### Added
